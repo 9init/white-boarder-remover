@@ -67,20 +67,117 @@ async function cropImage(inputImagePath) {
   });
 
   // Vertical edge counts
-  const vTopLeft = calculateEdgeCounts(bwArray2D, 'vertical', 'top');
-  const vBottomLeft = calculateEdgeCounts(bwArray2D, 'vertical', 'bottom');
-  const vTopRight = calculateEdgeCounts(bwArray2D, 'vertical', 'top');
-  const vBottomRight = calculateEdgeCounts(bwArray2D, 'vertical', 'bottom');
-  const vTopMiddle = calculateEdgeCounts(bwArray2D, 'vertical', 'top');
-  const vBottomMiddle = calculateEdgeCounts(bwArray2D, 'vertical', 'bottom');
+  let
+    vTopLeft = 0,
+    vBottomLeft = 0,
+    vTopRight = 0,
+    vBottomRight = 0,
+    vTopMiddle = 0,
+    vBottomMiddle = 0
 
   // Horizontal edge counts
-  const hTopLeft = calculateEdgeCounts(bwArray2D, 'horizontal', 'top');
-  const hTopRight = calculateEdgeCounts(bwArray2D, 'horizontal', 'top');
-  const hBottomLeft = calculateEdgeCounts(bwArray2D, 'horizontal', 'bottom');
-  const hBottomRight = calculateEdgeCounts(bwArray2D, 'horizontal', 'bottom');
-  const hTopMiddle = calculateEdgeCounts(bwArray2D, 'horizontal', 'top');
-  const hBottomMiddle = calculateEdgeCounts(bwArray2D, 'horizontal', 'bottom');
+  let hTopLeft = 0,
+    hTopRight = 0,
+    hBottomLeft = 0,
+    hBottomRight = 0,
+    hTopMiddle = 0,
+    hBottomMiddle = 0
+
+  for (let y = 0; y < height; y++) { // vtop left
+    if (bwArray2D[y][0] == 1) {
+      vTopLeft++;
+      continue;
+    }
+    break;
+  }
+
+  for (let y = height - 1; y >= 0; y--) { // vbottom left
+    if (bwArray2D[y][0] == 1) {
+      vBottomLeft++;
+      continue;
+    }
+    break;
+  }
+
+  for (let y = 0; y < height; y++) { // vtop right
+    if (bwArray2D[y][width - 1] == 1) {
+      vTopRight++;
+      continue;
+    }
+    break;
+  }
+
+  for (let y = height - 1; y >= 0; y--) { // vbottom right
+    if (bwArray2D[y][width - 1] == 1) {
+      vBottomRight++;
+      continue;
+    }
+    break;
+  }
+
+  for (let y = 0; y < height; y++) { // vtop middle
+    if (bwArray2D[y][Math.floor(width / 2)] == 1) {
+      vTopMiddle++;
+      continue;
+    }
+    break;
+  }
+
+  for (let y = height - 1; y >= 0; y--) { // vbottom middle
+    if (bwArray2D[y][Math.floor(width / 2)] == 1) {
+      vBottomMiddle++;
+      continue;
+    }
+    break;
+  }
+
+  for (let x = 0; x < width; x++) { // htop left
+    if (bwArray2D[0][x] == 1) {
+      hTopLeft++;
+      continue;
+    }
+    break;
+  }
+
+  for (let x = width - 1; x >= 0; x--) { // htop right
+    if (bwArray2D[0][x] == 1) {
+      hTopRight++;
+      continue;
+    }
+    break;
+  }
+
+  for (let x = 0; x < width; x++) { // hbottom left
+    if (bwArray2D[height - 1][x] == 1) {
+      hBottomLeft++;
+      continue;
+    }
+    break;
+  }
+
+  for (let x = width - 1; x >= 0; x--) { // hbottom right
+    if (bwArray2D[height - 1][x] == 1) {
+      hBottomRight++;
+      continue;
+    }
+    break;
+  }
+
+  for (let x = 0; x < width; x++) { // htop middle
+    if (bwArray2D[Math.floor(height / 2)][x] == 1) {
+      hTopMiddle++;
+      continue;
+    }
+    break;
+  }
+
+  for (let x = width - 1; x >= 0; x--) { // hbottom middle
+    if (bwArray2D[Math.floor(height / 2)][x] == 1) {
+      hBottomMiddle++;
+      continue;
+    }
+    break;
+  }
 
   // vertical
   const smallerVTop = vTopLeft < vTopRight ? vTopLeft : vTopRight;
@@ -102,7 +199,7 @@ async function cropImage(inputImagePath) {
   const cropFromTop = smallerVertical > smallerHorizontal;
 
   if (cropFromTop) {
-    return rgbArray2D.slice(smallerVertical, height - smallerVertical);
+    return rgbArray2D.slice(smallerVertical + 1, height - smallerVertical - 1);
   } else {
     return rgbArray2D.map(row => row.slice(1 + smallerHorizontal, width - smallerHorizontal - 1));
   }
