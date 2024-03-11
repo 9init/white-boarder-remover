@@ -38,7 +38,7 @@ The Image White Boarder Remover Tool is a command-line utility that helps to cli
 1. Run the tool:
 
    ```bash
-    start
+    npm start
    ```
 
 2. The tool will process images in batches, automatically calculating edge counts in various directions and cropping white borders. The results will be logged, and the cropped images will be saved in the "output" folder.

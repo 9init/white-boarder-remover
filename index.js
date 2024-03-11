@@ -88,7 +88,7 @@ async function cropImage(inputImagePath) {
   const smallerVMiddle = vTopMiddle < vBottomMiddle ? vTopMiddle : vBottomMiddle;
   let smallerVertical = smallerVTop < smallerVBottom ? smallerVTop : smallerVBottom;
   smallerVertical = smallerVMiddle < smallerVertical ? smallerVMiddle : smallerVertical;
-  smallerVertical = smallerVertical < height / 3 ? smallerVertical : 0;
+  smallerVertical = smallerVertical < height / 2 ? smallerVertical : 0;
 
   // horizontal
   const smallerHLeft = hTopLeft < hBottomLeft ? hTopLeft : hBottomLeft;
@@ -96,7 +96,7 @@ async function cropImage(inputImagePath) {
   const smallerHMiddle = hTopMiddle < hBottomMiddle ? hTopMiddle : hBottomMiddle;
   let smallerHorizontal = smallerHLeft < smallerHRight ? smallerHLeft : smallerHRight;
   smallerHorizontal = smallerHMiddle < smallerHorizontal ? smallerHMiddle : smallerHorizontal;
-  smallerHorizontal = smallerHorizontal < width / 3 ? smallerHorizontal : 0;
+  smallerHorizontal = smallerHorizontal < width / 2 ? smallerHorizontal : 0;
 
   // crop the image from top and bottom if smallerVertical is greater than smallerHorizontal otherwise crop from left and right
   const cropFromTop = smallerVertical > smallerHorizontal;
